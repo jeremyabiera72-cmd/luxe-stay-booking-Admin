@@ -1,0 +1,121 @@
+{
+  "entities": {
+    "Room": {
+      "title": "Room",
+      "description": "A hotel room entity.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "roomNumber": { "type": "string" },
+        "type": { "type": "string" },
+        "status": { "type": "string" },
+        "pricePerNight": { "type": "number" }
+      },
+      "required": ["name", "roomNumber", "type", "status", "pricePerNight"]
+    },
+    "Booking": {
+      "title": "Booking",
+      "description": "A room booking entity.",
+      "type": "object",
+      "properties": {
+        "customerName": { "type": "string" },
+        "customerEmail": { "type": "string" },
+        "resourceId": { "type": "string" },
+        "status": { "type": "string" },
+        "checkIn": { "type": "string", "format": "date-time" },
+        "checkOut": { "type": "string", "format": "date-time" },
+        "totalAmount": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "aiReviewStatus": { "type": "string" }
+      },
+      "required": ["customerName", "customerEmail", "resourceId", "status", "checkIn", "checkOut", "totalAmount", "createdAt"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "A customer review.",
+      "type": "object",
+      "properties": {
+        "customerName": { "type": "string" },
+        "rating": { "type": "number" },
+        "comment": { "type": "string" },
+        "resourceId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["customerName", "rating", "comment", "resourceId", "createdAt"]
+    },
+    "Service": {
+      "title": "Service",
+      "description": "A hotel service (e.g., Spa, Dining).",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "price": { "type": "number" }
+      },
+      "required": ["name", "price"]
+    },
+    "Contact": {
+      "title": "Contact",
+      "description": "A contact message from a user.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "message": { "type": "string" }
+      },
+      "required": ["name", "email", "message"]
+    },
+    "Report": {
+      "title": "Report",
+      "description": "An internal report.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "content": { "type": "string" }
+      },
+      "required": ["title", "content"]
+    },
+    "AutomationLog": {
+      "title": "Automation Log",
+      "description": "Logs for the AI automation process.",
+      "type": "object",
+      "properties": {
+        "bookingId": { "type": "string" },
+        "customerName": { "type": "string" },
+        "status": { "type": "string", "enum": ["reading", "confirming", "mailing", "completed", "system", "review-ready"] },
+        "message": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["bookingId", "status", "message", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/rooms/{roomId}": {
+      "schema": "Room",
+      "description": "Collection of hotel rooms."
+    },
+    "/bookings/{bookingId}": {
+      "schema": "Booking",
+      "description": "Collection of bookings."
+    },
+    "/reviews/{reviewId}": {
+      "schema": "Review",
+      "description": "Collection of reviews."
+    },
+    "/services/{serviceId}": {
+      "schema": "Service",
+      "description": "Collection of hotel services."
+    },
+    "/contacts/{contactId}": {
+      "schema": "Contact",
+      "description": "Collection of contact messages."
+    },
+    "/reports/{reportId}": {
+      "schema": "Report",
+      "description": "Collection of internal reports."
+    },
+    "/automationLogs/{logId}": {
+      "schema": "AutomationLog",
+      "description": "Collection of AI automation logs."
+    }
+  }
+}
